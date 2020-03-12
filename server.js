@@ -45,7 +45,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 
-app.use('/showStats', showStats);
+app.use('/admin/showStats', showStats);
 
 app.use(
   session({

@@ -2,24 +2,58 @@
   margin: 5px;
   border: 0px;
   height: 30px;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: rgb(72, 170, 187);
 }
 
 .date {
+  display: inline;
+  color: rgb(255, 255, 255);
+  font-weight: 900;
+  padding: 5px;
   margin: 5px;
   border: 0px;
   height: 30px;
   width: 30px;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: rgb(184, 98, 172);
 }
 
-.count {
+.time {
+  display: inline;
+  color: rgb(255, 255, 255);
+  font-weight: 900;
+  padding: 5px;
   margin: 5px;
   border: 0px;
   height: 30px;
   width: 30px;
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: rgb(91, 187, 72);
+}
+
+.count {
+  display: inline;
+  color: rgb(255, 255, 255);
+  font-weight: 900;
+  padding: 5px;
+  margin: 5px;
+  border: 0px;
+  height: 30px;
+  width: 30px;
+  border-radius: 3px;
+  background-color: rgb(187, 99, 72);
+}
+
+.voted {
+  color: white;
+  font-weight: 900;
+  white-space: initial;
+  padding: 5px;
+  max-width: 500px;
+  margin: 5px;
+  border: 0px;
+  min-width: 300px;
+  border-radius: 3px;
+  background-color: rgba(255, 99, 71, 0.973);
 }

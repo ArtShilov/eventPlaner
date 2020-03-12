@@ -8,30 +8,37 @@ const router = express.Router();
 // app.set('view engine', 'hbs');
 
 const incomingVoices = [
-  {date: 1, time: 1700, people: [1, 4]},
+  {date: 2, time: 1700, people: [1, 4]},
   {date: 1, time: 1700, people: [4, 4, '3', '1', '2', '3']},
   {date: 1, time: 1700, people: ['1', '2', '3', 1, 1, 1, 1]},
   {date: 1, time: 1700, people: ['1', 4, '3','1', 7, '3','1', '2', '3']},
   {date: 1, time: 1700, people: ['1', '2', '3']}
 ];
 
-let arr = renderWidth(incomingVoices);
+let arr = introduceData(incomingVoices);
 
-function renderWidth(arr) {
-  const arrOfCountVotedPeople = [];
+function introduceData(arr) {
   let sum = 0;
+  const arrOfCountVotedPeople = [];
   arr.forEach(element => {
     sum += element.people.length;
   });
   arr.forEach(element => {
-    let temp = Math.floor(element.people.length / sum * 500);
-    arrOfCountVotedPeople.push({number: temp});
+    let numberOfPeople = Math.floor(element.people.length / sum * 500);
+    let eventDate = element.date;
+    let eventTime = element.time;
+    let quantity = element.people.length;
+    arrOfCountVotedPeople.push({
+      widthScale: numberOfPeople, 
+      date: eventDate, 
+      time: eventTime, 
+      count: quantity
+    });
   });
-  
   return arrOfCountVotedPeople;
 }
 
-  router.get('/', (req, res) => {    
+  router.get('/', (req, res) => {
     res.render('showStats', {arr});
   });
 
