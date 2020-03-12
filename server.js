@@ -8,33 +8,9 @@ const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const {userModel,eventModel} = require ('./bd')
 const showStats = require('./routes/showStats');
-// const User = require("./models/usersModel"); // путь к модели
-// const Event = require("./models/eventModel"); // путь к модели
 
 const app = express();
-// let user = null;
-// // Подключаем mongoose.
-// const mongoose = require("mongoose");
-// mongoose.connect("mongodb://localhost:27017/EventDB", {
-//   useNewUrlParser: true
-// });
 
-// mongoose.pluralize(null);
-// mongoose.set("useCreateIndex", true);
-
-// let newParty = Event.create({
-//   name: "Вечеринка",
-//   description: "Чайхона №1",
-//   time: []
-// })
-
-// let parties = [];
-
-// async () => {
-//  parties = await Event.find()
-//  console.log(parties);
-// }
-// view engine setup
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -162,6 +138,11 @@ app.get("/admin/:id",async function(req, res, next) { // ЗДЕСЬ СТАТИС
   res.render("eventNow",{eventNow : eventNow} );
 });
 
+app.get("/delete/:id",async function(req, res, next) { // ЗДЕСЬ delete event 
+
+  const eventNowArr = await eventModel.deleteOne(req.params._id)
+  res.redirect("/showParties");
+});
 
 
 
