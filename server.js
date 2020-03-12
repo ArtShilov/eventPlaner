@@ -162,7 +162,9 @@ app.post("/createEventDB",async function(req, res, next) { // ЗДЕСЬ доб�
   for(key in req.body){
     if (key != 'name') {
       if (key != 'description') {
-        console.log(key);
+        console.log(key.split('_') );
+        
+        
         
       }
     }
