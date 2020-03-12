@@ -1,15 +1,28 @@
 
-{{#each arr }}
-<div class="date">
-  День {{date}}
-</div>
-<div class="time">
-  Время {{time}}
-</div>
-<div class="count">
-  Проголосовало {{count}}
-</div>
-<div class="scale" style="width:{{widthScale}}px;">
-</div>
+{{#each arr}}
+
+  <div class="date">
+    День {{date}}
+  </div>
+
+  <div class="time">
+    Время {{time}}
+  </div>
+
+  <div class="count">
+    Проголосовало {{count}}
+  </div>
+
+  <div class="scale" style="width:{{widthScale}}px;">
+  </div>
+
 {{/each}}
 
+<div class="voted">
+  {{#each arr}}
+  <br>
+  <p>За день {{date}}</p>
+  <p>В это время: {{time}}</p>
+  <p>Голосовали: {{list}}</p>
+  {{/each}}
+</div>

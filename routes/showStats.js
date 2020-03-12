@@ -8,11 +8,11 @@ const router = express.Router();
 // app.set('view engine', 'hbs');
 
 const incomingVoices = [
-  {date: 2, time: 1700, people: [1, 4]},
-  {date: 1, time: 1700, people: [4, 4, '3', '1', '2', '3']},
-  {date: 1, time: 1700, people: ['1', '2', '3', 1, 1, 1, 1]},
-  {date: 1, time: 1700, people: ['1', 4, '3','1', 7, '3','1', '2', '3']},
-  {date: 1, time: 1700, people: ['1', '2', '3']}
+  {date: 2, time: 1700, people: [{name: '1Arst', phone: 345345}, {name: '2Arst', phone: 345345}, {name: '3Arst', phone: 345345}]},
+  {date: 1, time: 1700, people: [{name: '4Arst', phone: 345345}, {name: '5Arst', phone: 345345}, {name: '6Arst', phone: 345345}]},
+  {date: 1, time: 1700, people: [{name: '1Arst', phone: 345345}, {name: '7Arst', phone: 345345}, {name: '8Arst', phone: 345345}]},
+  {date: 1, time: 1700, people: [{name: '1Arst', phone: 345345}, {name: '2Arst', phone: 345345}, {name: '3Arst', phone: 345345}]},
+  {date: 1, time: 1700, people: [{name: '1Arst', phone: 345345}, {name: '2Arst', phone: 345345}, {name: '3Arst', phone: 345345}]}
 ];
 
 let arr = introduceData(incomingVoices);
@@ -28,11 +28,16 @@ function introduceData(arr) {
     let eventDate = element.date;
     let eventTime = element.time;
     let quantity = element.people.length;
+    let allVoted = new String();
+    element.people.forEach(person => {
+      allVoted += `   ${person.name}[${person.phone}]   `;
+    });
     arrOfCountVotedPeople.push({
       widthScale: numberOfPeople, 
       date: eventDate, 
       time: eventTime, 
-      count: quantity
+      count: quantity,
+      list: allVoted
     });
   });
   return arrOfCountVotedPeople;
