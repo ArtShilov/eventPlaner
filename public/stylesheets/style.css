@@ -1,0 +1,25 @@
+.scale {
+  margin: 5px;
+  border: 0px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: rgb(72, 170, 187);
+}
+
+.date {
+  margin: 5px;
+  border: 0px;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  background-color: rgb(184, 98, 172);
+}
+
+.count {
+  margin: 5px;
+  border: 0px;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  background-color: rgb(91, 187, 72);
+}
