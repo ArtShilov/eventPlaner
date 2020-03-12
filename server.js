@@ -120,15 +120,6 @@ app.get("/showParties",async function(req, res, next) {// ПОКАЗЫВАЕТ �
 });
 
 
-app.post("/showParties", async function(req, res, next) {
-  await Event.create({
-    name: req.body.name,
-    description: req.body.description,
-    time: []
-  });
-  res.redirect("/thankAdmin");
-});
-
 app.get("/admin/:id",async function(req, res, next) { // ЗДЕСЬ СТАТИСТИКА 
 
   const eventNowArr = await eventModel.find(req.params._id)
@@ -143,6 +134,17 @@ app.get("/delete/:id",async function(req, res, next) { // ЗДЕСЬ delete even
 });
 
 
+app.post("/createEventDB",async function(req, res, next) { // ЗДЕСЬ добавляет в базу event 
+  let aaa = req.body
+  console.log(aaa);
+  
+  const newEvent = await eventModel.create({
+        name: req.body.name,
+        description: req.body.description, 
+        time: []
+      });
+  res.redirect('/showParties')
+});
 
 
 
