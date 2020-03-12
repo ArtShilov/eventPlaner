@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css">
+  <link rel="stylesheet" href="/stylesheets/application.css">
+{{!-- 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/js/application.js"></script> --}}
+
+  <title>Choose the party</title>
+</head>
+
+<body>
+  <div class="container">
+  <header role="banner" class="mar-t-5 pad-t-2 pad-b-4 pad-s-1 wrap-float bg-white">
+    <div class="max-w-700 center wrap-float">
+      {{!-- <nav class="clearfix mar-b-1">
+        <ul class="no-bullets no-margin no-padding right">
+
+          {{#if user}}
+          <p>{{user.name}}</p>
+          <li class="pipe-separate t-light-green left"><a href="/entries"> entries</a></li>
+          <li class="pipe-separate t-light-green left"><a href="/entries/new"> New post</a></li>
+
+          {{else}}
+          <li class="pipe-separate t-light-green left"><a href="/login">LogIn</a></li>
+          <li class="pipe-separate t-light-green left"><a href="/register">Register</a></li>
+          {{/if}}
+        </ul>
+      </nav> --}}
+
+      <div class="logo-container">
+        <img class="logo" src="/images/party.png" class="center block">
+        <h1>Choose the party</h1>
+      </div>
+    </div>
+  </header>
+  <div class="bg-dk-green pad-t-2 pad-s-1 pad-b-8 mar-b-16 c-white">
+    <div class="max-w-700 center">
+      {{{body}}}
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>

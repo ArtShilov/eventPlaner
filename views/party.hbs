@@ -1,0 +1,44 @@
+<h2>Голосуем за {{newParty.name}}</h2>
+<p>{{newParty.description}}</p>
+
+<form action="/party" method="POST">
+  
+  <label> пятница </label><br>
+ 
+ <ul>
+   <li> <input type="checkbox" name="day1time1" value="day1time1">
+    <label for="day1time1"> 14-16 </label></li>
+   <li><input type="checkbox" name="day1time2" value="day1time2">
+    <label for="day1time2"> 16-18 </label></li>
+   <li><input type="checkbox" name="day1time3" value="day1time3">
+    <label for="day1time3"> 18-20 </label></li>
+ </ul>
+
+  
+  <label > суббота</label><br>
+
+  <ul>
+    <li> <input type="checkbox" name="day2time1" value="day2time1">
+     <label for="day2time1"> 14-16 </label></li>
+    <li><input type="checkbox" name="day2time2" value="day2time2">
+     <label for="day2time2"> 16-18 </label></li>
+    <li><input type="checkbox" name="day2time3" value="day2time3">
+     <label for="day2time3"> 18-20 </label></li>
+  </ul>
+
+ 
+  <label > воскресенье </label><br><br>
+
+  <ul>
+    <li> <input type="checkbox" name="day3time1" value="day3time1">
+     <label for="day3time1"> 14-16 </label></li>
+    <li><input type="checkbox" name="day3time2" value="day3time2">
+     <label for="day3time2"> 16-18 </label></li>
+    <li><input type="checkbox" name="day3time3" value="day3time3">
+     <label for="day3time3"> 18-20 </label></li>
+  </ul>
+  
+  <input type="reset" value="сбросить">
+  <input type="submit" value="отправить">
+
+</form>

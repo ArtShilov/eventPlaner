@@ -1,0 +1,15 @@
+<h2>Текущие мероприятия</h2>
+
+{{#each events}}
+<h2> <a href="admin/{{this._id}}">{{this.name}}</a>
+  </h2>
+<br>
+{{/each}}
+
+
+
+<form action="/admin/createEvent" method="post">
+<input type="submit" value = 'Создать мероприятие'>
+</form>
+
+

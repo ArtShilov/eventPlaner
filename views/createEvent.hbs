@@ -1,0 +1,44 @@
+
+{{#each party}}
+<li>{{name}}</li>
+{{/each}}
+<h2>Добавить мероприятие для голосования</h2>
+
+
+<form action="/createEventDB" method="POST">
+  {{!-- <input type="text" placeholder="Login"> --}}
+  <input type="text" placeholder="Название" name="name">
+  <br>
+  <br>
+
+  <input type="text" placeholder="Описание" name="description">
+  <br>
+  <br>
+<table>
+<thead>
+    <th>день/время</th>
+  {{#each hour}}
+ <th>{{this}}</th>
+  {{/each}}
+</thead>
+<tbody>
+
+{{#each days}}
+ <tr>
+   
+  <th>{{day}}</th>
+  
+  {{#each hours}}
+  <td><input name=`{{day}}_{{h}}` type='checkbox' ></td>
+  {{/each}}
+ </tr>
+{{/each }} 
+</tbody>
+</table>
+    </div>
+
+
+<br>
+<br>
+  <input type="submit" value="Отправить">
+</form>
