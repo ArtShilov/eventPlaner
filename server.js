@@ -7,7 +7,7 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const {userModel,eventModel} = require ('./bd')
-
+const showStats = require('./routes/showStats');
 
 const app = express();
 
@@ -21,6 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 
+app.use('/showStats', showStats);
+
 app.use(
   session({
     store: new FileStore(),
@@ -33,9 +35,9 @@ app.use(
       httpOnly: false
     }
   })
-);
-
-app.use(express.static(path.join(__dirname, "public")));
+  );
+  
+  app.use(express.static(path.join(__dirname, "public")));
 
 app.use(function(req, res, next) {
   app.locals.user = req.session.user;
