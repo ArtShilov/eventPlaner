@@ -7,7 +7,10 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const {userModel,eventModel} = require ('./bd')
+
+const bcrypt = require('bcrypt')
 const showStats = require('./routes/showStats');
+
 
 const app = express();
 
@@ -91,10 +94,26 @@ app.post("/party", async function(req, res, next) {
 app.get("/admin", function(reg, res, next) {
   res.render("admin");
 });
-app.post("/admin", function(req, res, next) {
-  // тут можно всставить проверку по админу а можно не вставлять
-  res.redirect("/showParties");
+
+app.post("/admin",async function(req, res, next) {
+  let data = req.body.phone
+  let name = await userModel.findOne({name:req.body.name})
+  
+  if (name && (+/* потому что строка */data == name.phone)) {
+    req.session.user = name
+    res.redirect("/showParties");
+  }else{
+    res.redirect("/");
+  }
 });
+
+app.use(function(req,res,next) { //для проверки сессии!!! 
+  if (!req.session.user) {
+    res.redirect("/");
+  }else{
+    next()
+  }
+})
 
 app.post("/admin/createEvent", function(req, res, next) {// здесь создают событие 
   const days = []
@@ -122,15 +141,6 @@ app.get("/showParties",async function(req, res, next) {// ПОКАЗЫВАЕТ �
 });
 
 
-app.post("/showParties", async function(req, res, next) {
-  await Event.create({
-    name: req.body.name,
-    description: req.body.description,
-    time: []
-  });
-  res.redirect("/thankAdmin");
-});
-
 app.get("/admin/:id",async function(req, res, next) { // ЗДЕСЬ СТАТИСТИКА 
 
   const eventNowArr = await eventModel.find(req.params._id)
@@ -145,6 +155,29 @@ app.get("/delete/:id",async function(req, res, next) { // ЗДЕСЬ delete even
 });
 
 
+app.post("/createEventDB",async function(req, res, next) { // ЗДЕСЬ добавляет в базу event 
+  let aaa = req.body
+  // console.log(aaa);
+
+  for(key in req.body){
+    if (key != 'name') {
+      if (key != 'description') {
+        console.log(key.split('_') );
+        
+        
+        
+      }
+    }
+    
+  }
+  
+  const newEvent = await eventModel.create({
+        name: req.body.name,
+        description: req.body.description, 
+        time: []
+      });
+  res.redirect('/showParties')
+});
 
 
 
