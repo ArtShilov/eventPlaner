@@ -1,0 +1,38 @@
+<form action="/voit-submit/{{eventId}}&{{idUser}}" method="POST">
+<table>
+  {{#each data}}
+  <tr>
+   <td>{{day}}</td>
+   {{#each times}}
+   <td>
+     {{time}}
+     <input type="checkbox" name="{{time}}_{{date}}" id="">
+   </td>
+   {{/each}}
+   </tr> 
+  {{/each}}
+</table>
+<br>
+<input type="submit" value="Отправить">
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

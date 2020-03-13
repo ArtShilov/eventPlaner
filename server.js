@@ -46,6 +46,47 @@ app.use(function(req, res, next) {
   app.locals.user = req.session.user;
   next();
 });
+//////////////////////////// vadim
+app.get("/voit/:idEvent&:idUser", async function(req, res, next) {
+  const eventData = await eventModel.findOne({ _id: req.params.idEvent });
+  const dates = [];
+  eventData.time = eventData.time.map(element => {
+    return { times: element, day: element[0].date };
+  });
+  res.render("chooseTimeForUser", {
+    idUser: req.params.idUser,
+    eventId: req.params.idEvent,
+    data: eventData.time
+  });
+});
+app.post("/voit-submit/:idEvent&:idUser", async function(req, res, next) {
+  arrEvent = [];
+  for (let item in req.body) {
+    const arr = item.split("_");
+    arrEvent.push(arr);
+  }
+  eventModel.findOne({
+    _id: { $eq: req.params.idEvent }
+  }).then(eventData =>{
+  for (let arrTimeData of arrEvent) {
+    for (let index in eventData.time) {
+      for (let secondIndex in eventData.time[+index]) {
+        if (
+          +eventData.time[+index][+secondIndex].time === +arrTimeData[0] &&
+          +eventData.time[+index][+secondIndex].date === +arrTimeData[1]
+        ) {
+          eventData.time[+index][+secondIndex].people.push(req.params.idUser);
+        }
+      }
+    }
+  }
+  eventData.markModified('time')
+  eventData.save(err => console.log(err));
+  res.render("voitThanks")
+  })
+});
+/////////////////////////////////
+
 
 app.get("/", function(req, res, next) {
   // if (req.session.user) {// проверка сессии админа - дописать надо
@@ -156,7 +197,9 @@ app.get("/delete/:id",async function(req, res, next) { // ЗДЕСЬ delete even
 
 
 app.post("/createEventDB",async function(req, res, next) { // ЗДЕСЬ добавляет в базу event 
-  let aaa = req.body
+  let name = req.body.name;
+  let description = req.body.description;
+  let arrayEvent =[];
   // console.log(aaa);
 
   for(key in req.body){
