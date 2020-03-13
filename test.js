@@ -1,3 +1,38 @@
+// const arrEvent = [
+//   [ '13.3', '1' ],
+//   [ '13.3', '2' ],
+//   [ '14.3', '1' ],
+//   [ '14.3', '2' ]
+// ]
+
+// const arrEvents = [];
+// for (let index in arrEvent){
+//   const objEvent = {
+//     date: arrEvent[index][0],
+//     time: arrEvent[index][1],
+//     people: [],
+//   } 
+//   arrEvents.push(objEvent)
+// }
+
+// const arrOfDays = [];
+// let dayCounter = 0;
+// for (let objEvent of arrEvents ){
+//   if (arrOfDays.length === 0){
+//     arrOfDays.push([objEvent])
+//     continue
+//   }
+//   if(arrOfDays[dayCounter][0].date === objEvent.date){
+//     arrOfDays[dayCounter].push(objEvent)
+//     continue
+//   }
+//   arrOfDays.push([objEvent]);
+//   dayCounter++
+// }
+// console.log(arrOfDays)
+
+
+
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -22,9 +57,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 
-
 app.use("/showStats", showStats);
-
 
 app.use(
   session({
@@ -194,15 +227,15 @@ app.get("/showParties", async function(req, res, next) {
 app.get("/admin/:id", async function(req, res, next) {
   // ЗДЕСЬ СТАТИСТИКА
 
-  const eventNow = await eventModel.findOne({_id: req.params.id});
-  console.log(eventNow)
+  const eventNowArr = await eventModel.find(req.params._id);
+  const eventNow = eventNowArr[0];
   res.render("eventNow", { eventNow: eventNow });
 });
 
 app.get("/delete/:id", async function(req, res, next) {
   // ЗДЕСЬ delete event
 
-  const eventNowArr = await eventModel.deleteOne({_id: req.params.id});
+  const eventNowArr = await eventModel.deleteOne(req.params._id);
   res.redirect("/showParties");
 });
 
