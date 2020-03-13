@@ -51,17 +51,7 @@ db.on("error", console.error.bind(console, "Ошибка соединения с
 
 // let arr = introduceData(arrayFromVadim);
 
-const data = eventModel
-  .findOne()
-  .then(async event => {
-    const arrByPopularity = sortTheMostPopular(event.time);
-        for (let obj of arrByPopularity){
-          for (let index in obj.people){
-            const documentUser = await userModel.findOne(obj.people[+index]);
-            obj.people[index] = documentUser
-          }
-        }
-  })
+
 
 function sortTheMostPopular(arrAllData) {
   const arrSeparateByStepTime = [];
@@ -75,35 +65,75 @@ function sortTheMostPopular(arrAllData) {
   return arrSeparateByStepTime;
 }
 
-function introduceData(data) {
-  let sum = 0;
-  const reFormatArray = [];
-  arr.forEach(element => {
-    sum += element.people.length;
-  });
-  arr.forEach(element => {
-    let numberOfPeople = Math.floor(element.people.length / sum * 500);
-    let eventDate = element.date;
-    let eventTime = element.time;
-    let quantity = element.people.length;
-    let allVoted = new String();
-    element.people.forEach(person => {
-      allVoted += ` ${person.name}[ ${person.phone} ]`;
-    });
-    reFormatArray.push({
-      widthScale: numberOfPeople, 
-      date: eventDate, 
-      time: eventTime, 
-      count: quantity,
-      list: allVoted
-    });
-  });
-  return reFormatArray;
-}
+// function introduceData(arr) {
+//   let sum = 0;
+//   const reFormatArray = [];
+//   arr.forEach(element => {
+//     sum += element.people.length;
+//   });
+//   arr.forEach(element => {
+//     let numberOfPeople = Math.floor(element.people.length / sum * 500);
+//     let eventDate = element.date;
+//     let eventTime = element.time;
+//     let quantity = element.people.length;
+//     let allVoted = new String();
+//     element.people.forEach(person => {
+//       allVoted += ` ${person.name}[ ${person.phone} ]`;
+//     });
+//     reFormatArray.push({
+//       widthScale: numberOfPeople, 
+//       date: eventDate, 
+//       time: eventTime, 
+//       count: quantity,
+//       list: allVoted
+//     });
+//   });
+//   return reFormatArray;
+// }
+
+// const arr = introduceData(data);
 
   router.get('/', async (req, res) => {
-    await data;
-    res.render('showStats', {data});
+    const data = eventModel
+  .findOne()
+  .then(async event => {
+    const arrByPopularity = sortTheMostPopular(event.time);
+        for (let obj of arrByPopularity){
+          for (let index in obj.people){
+            const documentUser = await userModel.findOne(obj.people[+index]);
+            obj.people[index] = documentUser
+          }
+        }
+        return arrByPopularity
+  }).then(function introduceData(arr) {
+    let sum = 0;
+    const reFormatArray = [];
+    arr.forEach(element => {
+      sum += element.people.length;
+    });
+    arr.forEach(element => {
+      let numberOfPeople = Math.floor(element.people.length / sum * 500);
+      let eventDate = element.date;
+      let eventTime = element.time;
+      let quantity = element.people.length;
+      let allVoted = new String();
+      element.people.forEach(person => {
+        allVoted += ` ${person.name}[ ${person.phone} ]`;
+      });
+      reFormatArray.push({
+        widthScale: numberOfPeople, 
+        date: eventDate, 
+        time: eventTime, 
+        count: quantity,
+        list: allVoted
+      });
+    });
+    // console.log(reFormatArray)
+    // res.send(reFormatArray)
+    res.render('showStats', {reFormatArray});
+  })
+
+
   });
 
 module.exports = router;
