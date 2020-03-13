@@ -33,6 +33,7 @@
   background-color: rgb(91, 187, 72);
 }
 
+
 .count {
   display: inline;
   color: rgb(255, 255, 255);
@@ -57,4 +58,9 @@
   min-width: 300px;
   border-radius: 3px;
   background-color: rgba(255, 99, 71, 0.973);
+
+.logo-container{
+
+  /* padding-left: 100px; */
+
 }
