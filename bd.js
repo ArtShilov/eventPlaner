@@ -36,29 +36,29 @@ const eventModel = new mongoose.model("event" /* имя коллекции */,ev
 
 
 //////////////////// логика голосования KOSTIAN
-const data = eventModel
-  .findOne()
-  .then(async event => {
-    const arrByPopularity = sortTheMostPopular(event.time);
-        for (let obj of arrByPopularity){
-          for (let index in obj.people){
-            const documentUser = await userModel.findOne(obj.people[+index]);
-            obj.people[index] = documentUser
-          }
-        }
-  })
+// const data = eventModel
+//   .findOne()
+//   .then(async event => {
+//     const arrByPopularity = sortTheMostPopular(event.time);
+//         for (let obj of arrByPopularity){
+//           for (let index in obj.people){
+//             const documentUser = await userModel.findOne(obj.people[+index]);
+//             obj.people[index] = documentUser
+//           }
+//         }
+//   })
 
-function sortTheMostPopular(arrAllData) {
-  const arrSeparateByStepTime = [];
-  arrAllData.forEach(arrDay => {
-    arrDay.forEach(timeObj => {
+// function sortTheMostPopular(arrAllData) {
+//   const arrSeparateByStepTime = [];
+//   arrAllData.forEach(arrDay => {
+//     arrDay.forEach(timeObj => {
 
-      arrSeparateByStepTime.push(timeObj);
-    });
-  });
-  arrSeparateByStepTime.sort((a, b) => b.people.length - a.people.length);
-  return arrSeparateByStepTime;
-}
+//       arrSeparateByStepTime.push(timeObj);
+//     });
+//   });
+//   arrSeparateByStepTime.sort((a, b) => b.people.length - a.people.length);
+//   return arrSeparateByStepTime;
+// }
 ///////////////////////////////////////
 
 

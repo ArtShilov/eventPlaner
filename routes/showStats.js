@@ -1,38 +1,139 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const {userModel,eventModel} = require ('../bd');
+
 const router = express.Router();
 
-// const path = require('path');
-// const app = express();
+mongoose.pluralize(null);
+const connectionAddress = "mongodb://localhost/testGOLOSOVANI";
+mongoose.connect(connectionAddress, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "Ошибка соединения с MongoDB:"));
 
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'hbs');
+// массив от Вадима переформатируется функцией introduceData
+// сохраняется в переменную arr
+// и эта переменная используется с помощью render в hbs
 
-const incomingVoices = [
-  {date: 1, time: 1700, people: [1, 4]},
-  {date: 1, time: 1700, people: [4, 4, '3', '1', '2', '3']},
-  {date: 1, time: 1700, people: ['1', '2', '3', 1, 1, 1, 1]},
-  {date: 1, time: 1700, people: ['1', 4, '3','1', 7, '3','1', '2', '3']},
-  {date: 1, time: 1700, people: ['1', '2', '3']}
-];
+// массив вида
+// [
+//   {date: x, time: x, people: [{name: x, phone: x}, {name: x, phone: x}]},
+//   {date: x, time: x, people: [{name: x, phone: x}, {name: x, phone: x}]}
+// ]
+// переформатируется в массив вида
+// [
+//   {
+//     widthScale: numberOfPeople, 
+//     date: eventDate,
+//     time: eventTime,
+//     count: quantity,
+//     list: allVoted
+//     },
+//   {
+//     widthScale: numberOfPeople, 
+//     date: eventDate, 
+//     time: eventTime, 
+//     count: quantity,
+//     list: allVoted
+//     }
+// ]
 
-let arr = renderWidth(incomingVoices);
 
-function renderWidth(arr) {
-  const arrOfCountVotedPeople = [];
-  let sum = 0;
-  arr.forEach(element => {
-    sum += element.people.length;
+// const arrayFromVadim = [
+//   {date: 2, time: 1700, people: [{name: 'srtwft', phone: 345345}, {name: 'stdk', phone: 345345}, {name: 'dwfhst', phone: 345345}, {name: '1Atsbhrst', phone: 345345}, {name: 'rsthbrs', phone: 345345}, {name: 'rstbrs', phone: 345345}, {name: 'tkpn', phone: 345345}, {name: '2Argjgnst', phone: 345345}, {name: '3Arsgjngt', phone: 345345}, {name: 'rasdZb', phone: 345345}, {name: '2Atttrst', phone: 345345}, {name: '3arsdcArst', phone: 345345}]},
+//   {date: 1, time: 1700, people: [{name: '4Arrasdwt', phone: 345345}, {name: '5Arsssst', phone: 345345}, {name: 'arsv', phone: 345345}, {name: '1Ararsdfast', phone: 345345}, {name: 'arsdvpbr', phone: 345345}, {name: 'ardsvv', phone: 345345}, {name: 'barxvh', phone: 345345}, {name: 'rsvrs', phone: 345345}, {name: 'rstAaaaa', phone: 345345}]},
+//   {date: 1, time: 1700, people: [{name: '1Arst', phone: 345345}, {name: 'srttbstt', phone: 345345}, {name: 'srtbsrt', phone: 345345}, {name: 'araazaz', phone: 345345}, {name: ',;pdk,;,j', phone: 345345}, {name: 'trst', phone: 345345}]},
+//   {date: 1, time: 1700, people: [{name: 'cwf', phone: 345345}, {name: '3Arsst', phone: 345345}]},
+//   {date: 1, time: 1700, people: [{name: 's', phone: 345345}, {name: 'dfh', phone: 345345}, {name: '3qqrst', phone: 345345}]}
+// ];
+
+// let arr = introduceData(arrayFromVadim);
+
+
+
+function sortTheMostPopular(arrAllData) {
+  const arrSeparateByStepTime = [];
+  arrAllData.forEach(arrDay => {
+    arrDay.forEach(timeObj => {
+
+      arrSeparateByStepTime.push(timeObj);
+    });
   });
-  arr.forEach(element => {
-    let temp = Math.floor(element.people.length / sum * 500);
-    arrOfCountVotedPeople.push({number: temp});
-  });
-  
-  return arrOfCountVotedPeople;
+  arrSeparateByStepTime.sort((a, b) => b.people.length - a.people.length);
+  return arrSeparateByStepTime;
 }
 
-  router.get('/', (req, res) => {    
-    res.render('showStats', {arr});
+// function introduceData(arr) {
+//   let sum = 0;
+//   const reFormatArray = [];
+//   arr.forEach(element => {
+//     sum += element.people.length;
+//   });
+//   arr.forEach(element => {
+//     let numberOfPeople = Math.floor(element.people.length / sum * 500);
+//     let eventDate = element.date;
+//     let eventTime = element.time;
+//     let quantity = element.people.length;
+//     let allVoted = new String();
+//     element.people.forEach(person => {
+//       allVoted += ` ${person.name}[ ${person.phone} ]`;
+//     });
+//     reFormatArray.push({
+//       widthScale: numberOfPeople, 
+//       date: eventDate, 
+//       time: eventTime, 
+//       count: quantity,
+//       list: allVoted
+//     });
+//   });
+//   return reFormatArray;
+// }
+
+// const arr = introduceData(data);
+
+  router.get('/', async (req, res) => {
+    const data = eventModel
+  .findOne()
+  .then(async event => {
+    const arrByPopularity = sortTheMostPopular(event.time);
+        for (let obj of arrByPopularity){
+          for (let index in obj.people){
+            const documentUser = await userModel.findOne(obj.people[+index]);
+            obj.people[index] = documentUser
+          }
+        }
+        return arrByPopularity
+  }).then(function introduceData(arr) {
+    let sum = 0;
+    const reFormatArray = [];
+    arr.forEach(element => {
+      sum += element.people.length;
+    });
+    arr.forEach(element => {
+      let numberOfPeople = Math.floor(element.people.length / sum * 500);
+      let eventDate = element.date;
+      let eventTime = element.time;
+      let quantity = element.people.length;
+      let allVoted = new String();
+      element.people.forEach(person => {
+        allVoted += ` ${person.name}[ ${person.phone} ]`;
+      });
+      reFormatArray.push({
+        widthScale: numberOfPeople, 
+        date: eventDate, 
+        time: eventTime, 
+        count: quantity,
+        list: allVoted
+      });
+    });
+    // console.log(reFormatArray)
+    // res.send(reFormatArray)
+    res.render('showStats', {reFormatArray});
+  })
+
+
   });
 
 module.exports = router;
