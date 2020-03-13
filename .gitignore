@@ -1,5 +1,3 @@
-/sessions
-
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 
 # Created by https://www.gitignore.io/api/visualstudiocode,linux,node
@@ -63,6 +61,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+sessions/
 
 # TypeScript v1 declaration files
 typings/

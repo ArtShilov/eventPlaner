@@ -1,0 +1,16 @@
+<h1>Вы на странице голосования</h1>
+<br>
+<h2>Представьтесь пожалуйста </h2>
+
+<form action="/ok/{{idEvent}}" method="POST">
+  {{!-- <input type="text" placeholder="Login"> --}}
+  <input type="text" placeholder="Имя фамилия" name="name">
+  <br>
+  <br>
+
+  <input type="text" placeholder="Номер телефона только цифрами" name="phone">
+  <br>
+  <br>
+
+  <input type="submit" value="Начать голосование">
+</form>

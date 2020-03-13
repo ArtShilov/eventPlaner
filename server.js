@@ -194,15 +194,15 @@ app.get("/showParties", async function(req, res, next) {
 app.get("/admin/:id", async function(req, res, next) {
   // ЗДЕСЬ СТАТИСТИКА
 
-  const eventNowArr = await eventModel.find(req.params._id);
-  const eventNow = eventNowArr[0];
+  const eventNow = await eventModel.findOne({_id: req.params.id});
+  console.log(eventNow)
   res.render("eventNow", { eventNow: eventNow });
 });
 
 app.get("/delete/:id", async function(req, res, next) {
   // ЗДЕСЬ delete event
 
-  const eventNowArr = await eventModel.deleteOne(req.params._id);
+  const eventNowArr = await eventModel.deleteOne({_id: req.params.id});
   res.redirect("/showParties");
 });
 
