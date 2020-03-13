@@ -58,9 +58,11 @@
   min-width: 300px;
   border-radius: 3px;
   background-color: rgba(255, 99, 71, 0.973);
+}
 
-.logo-container{
-
-  /* padding-left: 100px; */
-
+table{
+  table-layout: fixed;
+}
+td,th{
+  padding:1px;
 }

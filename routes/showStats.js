@@ -1,17 +1,17 @@
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const {userModel,eventModel} = require ('../bd');
 
 const router = express.Router();
 
-mongoose.pluralize(null);
-const connectionAddress = "mongodb://localhost/testGOLOSOVANI";
-mongoose.connect(connectionAddress, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "Ошибка соединения с MongoDB:"));
+// mongoose.pluralize(null);
+
+// mongoose.connect(connectionAddress, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "Ошибка соединения с MongoDB:"));
 
 // массив от Вадима переформатируется функцией introduceData
 // сохраняется в переменную arr
