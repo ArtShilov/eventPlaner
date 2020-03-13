@@ -6,7 +6,8 @@ const faker = require("faker");
 mongoose.pluralize(null);
 
 //Подключить базу данных
-const connectionAddress = "mongodb://localhost/testGOLOSOVANI"; // имя БД
+// const connectionAddress = "mongodb://localhost/testGOLOSOVANI"; // имя БД
+const connectionAddress = "mongodb+srv://Arina9509:Arina777@eventplanner-0hvnw.mongodb.net/test"; // имя БД
 mongoose.connect(connectionAddress, {
   useNewUrlParser: true,
   useUnifiedTopology: true
