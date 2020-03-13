@@ -1,12 +1,28 @@
 
-{{#each arr }}
-<div class="date">
-  {{date}}
-</div><div class="count">
-  {{count}}
-</div>
-<div class="scale" style="width:{{number}}px;">
-</div>
+{{#each reFormatArray}}
+
+  <div class="date">
+    День {{date}}
+  </div>
+
+  <div class="time">
+    Время {{time}}
+  </div>
+
+  <div class="count">
+    Проголосовало {{count}}
+  </div>
+
+  <div class="scale" style="width:{{widthScale}}px;">
+  </div>
+
 {{/each}}
 
-
+<div class="voted">
+  {{#each data}}
+  <br>
+  <p>За день {{date}}</p>
+  <p>В это время: {{time}}</p>
+  <p>Голосовали: {{list}}</p>
+  {{/each}}
+</div>
