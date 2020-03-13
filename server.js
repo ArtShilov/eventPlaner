@@ -171,10 +171,7 @@ app.post("/admin/createEvent", function(req, res, next) {// здесь созд�
       })
   }
   const  hour = (new Array(24).fill(null).map( (i,k) => k+1 ))
-  // for (let i = 0; i < 9; i++) {
-  //   hour[i]= hour[i] + ' ';
-    
-  // }
+ 
    res.render("createEvent", {days : days , hour : hour });
 });
 
