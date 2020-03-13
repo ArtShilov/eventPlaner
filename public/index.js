@@ -1,16 +1,17 @@
-// const checked = []
-// const table = document.getElementsByTagName('table')[0];
+
+const form = document.getElementById('adminLink');
 
 
-// table.addEventListener('click', function(event){
+form.addEventListener('submit', function(event){
 
-// event.stopPropagation()
-// console.log(event.target);
+event.preventDefault()
+console.log(event.target.firstElementChild);
 
-// if (event.target == '') {
-  
-// }
+document.getElementById("divId").innerHTML = `login/${event.target.firstElementChild.id}`; 
+
+});
 
 
 
-// })
+
+

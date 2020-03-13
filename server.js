@@ -195,6 +195,16 @@ app.get("/delete/:id",async function(req, res, next) { // ЗДЕСЬ delete even
   res.redirect("/showParties");
 });
 
+// app.post("/admin/link/:id",async function(req, res, next) { // ЗДЕСЬ делает ссылку на  event 
+  
+//   const eventNowArr = await eventModel.findOne(req.params._id)
+ 
+  
+ 
+
+//   res.render("/admin/:id", {link:eventNowArr._id });
+
+// });
 
 app.post("/createEventDB",async function(req, res, next) { // ЗДЕСЬ добавляет в базу event 
   let name = req.body.name;
@@ -207,7 +217,7 @@ app.post("/createEventDB",async function(req, res, next) { // ЗДЕСЬ доб�
       if (key != 'description') {
         console.log(key.split('_') );
         
-        
+        /* не сделано */
         
       }
     }
